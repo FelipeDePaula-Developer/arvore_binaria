@@ -35,18 +35,11 @@ public class ArvoreBinaria {
     private void preFixado(No atual) // caminhamento pré-fixado da árvore binária
     {
         if (atual != null) {
-            System.out.println("Id: " + atual.getId() + " Elemento: " + atual.getElemento());
+            System.out.println("Id: " + atual.getId() + " Elemento: " + atual.getElemento() +
+                    " Esquerda: " + atual.getEsq() + " Direita: " + atual.getDir());
+//            System.out.println("Id: " + atual.getId() + " Elemento: " + atual.getElemento());
             preFixado(atual.getEsq());
             preFixado(atual.getDir());
-        }
-    } // final método preFixado
-
-
-    private void getEsquerdaFestiva(No atual) // caminhamento pré-fixado da árvore binária
-    {
-        if (atual != null) {
-            preFixado(atual.getEsq());
-            System.out.println("Id: " + atual.getId() + " Elemento: " + atual.getElemento());
         }
     } // final método preFixado
 
@@ -73,9 +66,21 @@ public class ArvoreBinaria {
         preFixado(raiz);
     }
 
-    public void imprimeEsquerdaFestiva() // impressão dos elementos da árvore
+    private Integer countEsquerdaFestiva(No atual, Integer count)
     {
-        getEsquerdaFestiva(raiz);
+        if (atual != null) {
+            if (atual.getEsq() != null){
+                  count += 1;
+            }
+            countEsquerdaFestiva(atual.getEsq(), count);
+            countEsquerdaFestiva(atual.getDir(), count);
+        }
+        return count;
+    }
+
+    public Integer imprimeEsquerdaFestiva() // impressão dos elementos da árvore
+    {
+        return countEsquerdaFestiva(raiz, 0);
     }
     // final método insere
 
