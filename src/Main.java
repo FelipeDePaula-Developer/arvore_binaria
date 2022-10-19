@@ -15,6 +15,12 @@ public class Main {
         a.insere(60, "D - direita");
         a.insere(55, "E - esquerda");
         a.insere(56, "F - direita");
+        a.insere(200, "G - direita");
+        a.insere(150, "H - esquerda");
+        a.insere(125, "I - esquerda");
+        a.insere(175, "J - direita");
+        a.insere(300, "K - direita");
+        a.insere(350, "L - direita");
 
 //        a.imprimeElementosArvore();
         System.out.println(a.imprimeEsquerdaFestiva());

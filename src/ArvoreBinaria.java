@@ -66,21 +66,19 @@ public class ArvoreBinaria {
         preFixado(raiz);
     }
 
-    private Integer countEsquerdaFestiva(No atual, Integer count)
-    {
-        if (atual != null) {
-            if (atual.getEsq() != null){
-                  count += 1;
-            }
-            countEsquerdaFestiva(atual.getEsq(), count);
-            countEsquerdaFestiva(atual.getDir(), count);
+    private Integer countEsquerdaFestiva(No atual){
+        if(atual == null){
+            return 0;
+        }else if (atual.getEsq() != null){
+            return 1 + countEsquerdaFestiva(atual.getEsq()) + countEsquerdaFestiva(atual.getDir());
+        }else{
+            return 0;
         }
-        return count;
     }
 
     public Integer imprimeEsquerdaFestiva() // impressão dos elementos da árvore
     {
-        return countEsquerdaFestiva(raiz, 0);
+        return countEsquerdaFestiva(raiz);
     }
     // final método insere
 
