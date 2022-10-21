@@ -32,27 +32,26 @@ public class ArvoreBinaria {
             }
         }
     }
+
     private void preFixado(No atual) // caminhamento pré-fixado da árvore binária
     {
         if (atual != null) {
-            System.out.println("Id: " + atual.getId() + " Elemento: " + atual.getElemento() +
-                    " Esquerda: " + atual.getEsq() + " Direita: " + atual.getDir());
-//            System.out.println("Id: " + atual.getId() + " Elemento: " + atual.getElemento());
             preFixado(atual.getEsq());
             preFixado(atual.getDir());
+            System.out.println("Id: " + atual.getId() + " Elemento: " + atual.getElemento());
         }
-    } // final método preFixado
+    }
 
-    private void posFixado(No atual) // caminhamento pós-fixado da árvore binária
+    private void posFixado(No atual)
     {
         if (atual != null) {
             posFixado(atual.getEsq());
             posFixado(atual.getDir());
             System.out.println("Id: " + atual.getId() + " Elemento: " + atual.getElemento());
         }
-    } // final método posFixado
+    }
 
-    private void simFixado(No atual) // caminhamento simétrico fixado da árvore binária
+    private void simFixado(No atual)
     {
         if (atual != null) {
             simFixado(atual.getEsq());
@@ -61,26 +60,46 @@ public class ArvoreBinaria {
         }
     }
 
-    public void imprimeElementosArvore() // impressão dos elementos da árvore
+    public void imprimeElementosArvore()
     {
         preFixado(raiz);
     }
 
-    private Integer countEsquerdaFestiva(No atual){
-        if(atual == null){
+    private Integer countEsquerdaFestiva(No atual) {
+        if (atual == null) {
             return 0;
-        }else if (atual.getEsq() != null){
+        } else if (atual.getEsq() != null) {
             return 1 + countEsquerdaFestiva(atual.getEsq()) + countEsquerdaFestiva(atual.getDir());
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public Integer imprimeEsquerdaFestiva() // impressão dos elementos da árvore
+    public Integer imprimeEsquerdaFestiva()
     {
         return countEsquerdaFestiva(raiz);
     }
-    // final método insere
+
+    private void countNivelNo(No atual, Integer count) {
+        StringBuilder identacao = new StringBuilder();
+        for (int i = 0; i <= count; i++) {
+            identacao.append("    ");
+        }
+        if (atual == null) {
+            identacao.append("-");
+            System.out.println(identacao);
+        } else {
+            identacao.append(atual.getId());
+            System.out.println(identacao);
+            count += 1;
+            countNivelNo(atual.getEsq(), count);
+            countNivelNo(atual.getDir(), count);
+        }
+    }
+
+    public void imprimeNivelNo() {
+        countNivelNo(raiz, 0);
+    }
 
     private long calcAltura(No atual, long a) // calcula a altura da árvore
     {
@@ -95,10 +114,10 @@ public class ArvoreBinaria {
             }
         }
         return a;
-    } // final método calcAltura
+    }
 
     public long alturaArvore() {
         long a = 0;
         return calcAltura(raiz, a);
-    } // final do método alturaArvore
-} // Final da classe ArvoreBinaria
+    }
+}
